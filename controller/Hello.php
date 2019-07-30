@@ -5,11 +5,10 @@
  */
 class Hello extends Common {
 
-
-    public function get()
+    public function get($ww=0)
     {
         $data['author'] = '剑齿虎（余小波） QQ：1421926943';
         $data['home'] = 'http://edk24.com';
-        $this->returnMessage(200, '你好，欢迎使用api-base框架', $data);
+        $this->returnMessage(200, '你好，欢迎使用api-base框架'.$ww, $data);
     }
 }

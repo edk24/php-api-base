@@ -12,26 +12,18 @@
   * @param string $default 默认返回值
   * @return void
   */
-function input($name='', $default='') {
-    $tmp = explain('.', $name);
-    if (count($tmp)==2) {
-        $type   = $tmp[0];
-        $key    = $tmp[1];
-        if ($type=='get') {
-            return (isset($_GET[$key])?$_GET[$key]:$default);
-        } else if ($type=='post') {
-            return (isset($_POST[$key])?$_POST[$key]:$default);
-        } 
-    } 
-
-    if (isset($_GET[$name])) {
-        return $_GET[$name];
-    } else if (isset($_POST[$name])) {
-        return $_POST[$name];
-    } else {
-        return $default;
+if (!function_exists('input')) {
+    function input($name='', $default='') {
+        if (isset($_GET[$name])) {
+            return $_GET[$name];
+        } else if (isset($_POST[$name])) {
+            return $_POST[$name];
+        } else {
+            return $default;
+        }
     }
 }
+
 
 /**
  * 使用数据库， 与tp5用法类似
