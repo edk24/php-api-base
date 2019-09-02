@@ -26,7 +26,7 @@ define('DB_PWD', '');
 // 数据库名
 define('DB_NAME', '');
 // 端口
-define('DB_PORT', 3006);
+define('DB_PORT', 3306);
 // 数据库编码 默认utf8
 define('DB_CHARSET', 'utf8');
 // 表前缀

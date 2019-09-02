@@ -1,9 +1,9 @@
 # 介绍
-这是一个简单的php `api`开发框架，设计上模仿`ThinkPHP`。 
-
-没有`视图（view）`  没有`模型（model）`
-
-只有`控制器（controller）` 和`数据库（databse）`以及`帮助函数（helper）`组成，纯粹为API接口开发诞生。
+> 这是一个简单的php `api`开发框架，设计上模仿`ThinkPHP`。 
+> 
+> 没有`视图（view）`  没有`模型（model）`
+> 
+> 只有`控制器（controller）` 和`数据库（databse）`以及`帮助函数（helper）`组成，纯粹为API接口开发诞生。
 
 **开发它的理由**
 
@@ -14,9 +14,9 @@ goods\get_detail.php
 goods\sel_comments.php
 mysql.php
 ```
-把我精到了， 而且目录很多。 这还是最规范的一个写法。  完全各自发挥。  数据库连接就好几处。
+把我震惊到了， 而且目录很多。 这还是最规范的一个写法。  同事们完全各自发挥。  数据库连接就好几处。
 
-一上手还用不了事务， 封装的数据库类。 执行时连接， 执行完就close了。
+一上手还用不了事务， 封装的数据库类。 流程如下。
 ```
 public function query($sql)
 {
@@ -27,7 +27,7 @@ public function query($sql)
 }
 ```
 
-我想我得自己写个连接。。。。
+我想我得自己写个连接。。。。  以支持事务...
 
 --------
 
@@ -36,16 +36,24 @@ public function query($sql)
 
 # 目录结构
 ```
-controller/Common.php  // 基础控制器、公共
-controller/Hello.php  // 示例控制器 （参考`ThinkPHP`规范）
-lib/Database.class.php // 数据库类库
-config.php // 配置文件
-helper.php  // 帮助函数
-Api.php   // 入口文件
+├── api.php		// 入口
+├── common.php	// 公共
+├── config.php	// 配置
+├── controller	// 控制器目录
+│   └── Hello.php	// 示例控制器 (规范参考thinkphp)
+├── helper.php	// 帮助函数
+├── lib			// 库
+│   └── Db.php	// 数据库
+└── README.md
+
 ```
 
-# URL请求
-这是一个示例控制器
+# 控制器
+
+>  `Hello.php` 
+>
+> 这是一个示例控制器, 编写规范参考thinkphp
+
 ```php
 class Hello extends Common {
 
@@ -56,6 +64,14 @@ class Hello extends Common {
     }
 }
 ```
-域名/入口文件?go=控制器名.方法名&参数a=11&参数b=22....
+# URL
 
-请求地址： `http://localhost/api.php?go=hello.get&text=success`
+> {域名}/{入口文件}?go={控制器名}.{方法名}&参数a=11&参数b=22....
+
+参考`示例控制器`, 访问地址为:
+
+-  `http://localhost/api.php?go=hello.get&text=success`
+
+# 数据库
+
+> 敬请期待...  将会是类似TP的连贯操作方式

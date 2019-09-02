@@ -8,10 +8,7 @@
 // 加载配置文件
 require_once 'config.php';
 require_once 'helper.php';
-/**
- * api 入口 (不是通用的, 只是我写的接口打算这么用)
- * @author 余小波
- */
+
 try {
     $data = explode('.', $_GET['go']);
     $controllerName = $data[0]; // 控制器
@@ -24,16 +21,12 @@ try {
 
     // 数据库
     include_once 'lib/Db.php';
-    include_once 'controller/Common.php';
     include_once $path;
-
-    // 模型 (没有)
 
     // 控制器
     if (!class_exists($controllerName)) {
         throw new Exception("找不到 $controllerName 控制器", 400);
     }
-    
 
     $controller = new $controllerName();
     $f = new ReflectionMethod($controller, $func);
@@ -44,10 +37,7 @@ try {
         } else {
             $args[] = input($param->getName());
         }
-        
     }
-    
-
     if (!method_exists($controller, $func)) {
         throw new Exception("未定义 $func 方法", 400);
     }

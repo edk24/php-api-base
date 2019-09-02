@@ -24,13 +24,27 @@ if (!function_exists('input')) {
     }
 }
 
-
 /**
- * 使用数据库， 与tp5用法类似
- *
- * @param string $tableName
- * @return void
+ * Json响应结果
  */
-function db($tableName='') {
-    
+if (!function_exists('retMsg')) {
+    /**
+     * Json响应结果，会结束脚本
+     *
+     * @param integer $code 状态码，建议同一使用200表示成功
+     * @param string $msg 消息字符串
+     * @param array $data  数据
+     * @param integer $count 数量 （可作为总数、页数使用）
+     * @return void
+     */
+    function retMsg($code=200, $msg='', $data=[], $count=0)
+    {
+        header('Content-type: application/json');
+        $dump['code']=$code;
+        $dump['msg']=$msg;
+        $dump['data']=$data;
+        $dump['count']=$count;
+        echo json_encode($dump);
+        exit;
+    }
 }
