@@ -36,34 +36,116 @@ public function query($sql)
 
 # 目录结构
 ```
-├── api.php		// 入口
-├── common.php	// 公共
-├── config.php	// 配置
-├── controller	// 控制器目录
-│   └── Hello.php	// 示例控制器 (规范参考thinkphp)
-├── helper.php	// 帮助函数
-├── lib			// 库
-│   └── Db.php	// 数据库
-└── README.md
+├── api.php				// 入口
+├── common.php			// 公共
+├── config.php			// 配置
+├── controller			// 控制器目录
+│   ├── Error.php		// 空控制器示例
+│   └── Hello.php		// 控制器示例
+├── helper.php			// 帮助函数
+├── lib					// 库
+│   ├── Controller.php	// 控制器祖宗
+│   ├── Core.php		// 核心
+│   └── Db.php			// 数据库操作类
+└── README.md			
 
 ```
 
 # 控制器
 
+> 控制器部分可参考thinkphp编写规范
+
+## 1.示例控制器
+
 >  `Hello.php` 
->
-> 这是一个示例控制器, 编写规范参考thinkphp
 
 ```php
-class Hello extends Common {
+class Hello {
 
     public function get()
     {
-        $text = input('text');
-        $this->returnMessage(200, $text);
+        $name = input('name');
+        retMsg(200, '你好 '.$name.'，欢迎使用api-base框架');
     }
 }
 ```
+访问地址: http://localhost/api.php?go=hello.get&name=余晓波
+
+## 2.参数绑定
+
+> Q: 为什么要有参数绑定
+>
+> A: 简洁方法时, 同时可以在内部让方法得到复用.  跟普通对象一样使用
+
+```php
+public function get($name='')
+{
+    retMsg(200, '你好 '.$name.'，欢迎使用api-base框架');
+}
+```
+
+## 3.空控制器
+
+> 空控制器名称为`Error`
+
+`Error.php`
+
+```php
+class Error {
+	public function _empty($actionName) {
+		// 目前这个版本不能获取控制器名称
+	}
+}
+```
+
+## 4.空操作
+
+> 空操作方法名称为`_empty`, 不能使用`参数绑定`.  只有一个参数即`操作名`
+
+```php
+public function _empty($actionName) {
+	echo $actionName;
+}
+```
+
+## 5.控制器继承
+
+> 控制器是可继承的, 参考tp
+
+```php
+class Hello extends Common
+{
+
+}
+```
+
+
+
+## 6.控制器初始化
+
+> 在你的控制器中声明一个`_init()`的操作, 它会在执行操作前运行
+
+```php
+class Hello {
+    public function _init()
+    {
+        echo "初始化";
+    }
+
+    public function test()
+    {
+        echo "test操作";
+    }
+}
+```
+
+运行结果为:
+
+```html
+初始化
+test操作
+```
+
 # URL
 
 > {域名}/{入口文件}?go={控制器名}.{方法名}&参数a=11&参数b=22....
@@ -74,4 +156,12 @@ class Hello extends Common {
 
 # 数据库
 
-> 敬请期待...  将会是类似TP的连贯操作方式
+> 敬请期待...  类似TP的连贯操作方式
+
+# 常量参考
+
+| 名称      | 描述       | 示例结果               |
+| --------- | ---------- | ---------------------- |
+| ROOT_PATH | 项目根目录 | /www/wwwroot/edk24.com |
+| VERSION   | 框架版本   | 1.00                   |
+

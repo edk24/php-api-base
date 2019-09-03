@@ -7,7 +7,8 @@
 // 版本
 define('VERSION', '1.00');
 // 根目录
-define('ROOT', '');
+define('ROOT_PATH', dirname(__FILE__));
+
 
 /**
  * ----------------------
